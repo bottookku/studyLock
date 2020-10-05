@@ -24,6 +24,8 @@ import java.util.Map;
 
 import static com.example.myapplication.Preferences.loadAllListApps;
 
+
+
 public class MainActivity extends Activity {
     public static Map<String,Integer> listApp;
     public static String nowUnlockPackageName = "sexuality";
