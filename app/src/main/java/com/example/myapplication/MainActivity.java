@@ -82,6 +82,7 @@ public class MainActivity extends Activity {
             final ImageButton btn = child.findViewById(R.id.button2);
             final Integer i[] = {1};
             i[0] = Preferences.getInt(app.activityInfo.packageName);
+
             setDrawble(i[0],btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
