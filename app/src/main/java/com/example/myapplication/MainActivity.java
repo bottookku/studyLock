@@ -1,5 +1,7 @@
 package com.example.myapplication;
-
+/////////////////////////
+////////////////////////
+///////////////////////////
 import android.app.Activity;
 import android.app.AppOpsManager;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -67,7 +70,9 @@ public class MainActivity extends Activity {
             ApplicationInfo applicationInfo = null;
             try {
                 applicationInfo = packageManager.getApplicationInfo(app.activityInfo.packageName, 0);
-            } catch (final PackageManager.NameNotFoundException e) {}
+            } catch (final PackageManager.NameNotFoundException e) {
+                Log.e("","");
+            }
             final String title = (String)((applicationInfo != null) ? packageManager.getApplicationLabel(applicationInfo) : "???");
 
             ViewGroup child = (ViewGroup) getLayoutInflater().inflate(R.layout.item_app,null);
@@ -75,7 +80,7 @@ public class MainActivity extends Activity {
             ImageView img = child.findViewById(R.id.imageView);
             img.setImageDrawable(app.activityInfo.loadIcon(getApplication().getPackageManager()));
             final ImageButton btn = child.findViewById(R.id.button2);
-            final int i[] = new int[1];
+            final Integer i[] = {1};
             i[0] = Preferences.getInt(app.activityInfo.packageName);
             setDrawble(i[0],btn);
             btn.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +92,9 @@ public class MainActivity extends Activity {
                     i[0]++;
                     setDrawble(i[0],btn);
                     Preferences.saveInt(app.activityInfo.packageName,i[0]);
-                    if(listApp.containsKey(app.activityInfo.packageName)) {
+                    //if(listApp.containsKey(app.activityInfo.packageName)) {
                         listApp.remove(app.activityInfo.packageName);
-                    }
+                    //}
                     listApp.put(app.activityInfo.packageName,i[0]);
                 }
             });
@@ -125,11 +130,10 @@ public class MainActivity extends Activity {
         try {
             PackageManager packageManager = getPackageManager();
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), 0);
-            AppOpsManager appOpsManager = (AppOpsManager) getSystemService(getApplicationContext().APP_OPS_SERVICE);
+            AppOpsManager appOpsManager = (AppOpsManager) getSystemService(APP_OPS_SERVICE);
             int mode = 0;
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
-                mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
-                        applicationInfo.uid, applicationInfo.packageName);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);
             }
             return (mode == AppOpsManager.MODE_ALLOWED);
 
