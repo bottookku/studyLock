@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
             i[0] = Preferences.getInt(app.activityInfo.packageName);
 
 
+
             setDrawble(i[0],btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
