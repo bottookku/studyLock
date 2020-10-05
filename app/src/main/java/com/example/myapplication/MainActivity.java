@@ -34,10 +34,6 @@ public class MainActivity extends Activity {
     public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE= 2323;
 
 
-
-
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
