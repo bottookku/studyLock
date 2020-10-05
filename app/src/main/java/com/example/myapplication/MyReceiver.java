@@ -18,6 +18,7 @@ public class MyReceiver extends BroadcastReceiver {
         return myReceiver;
     }
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)){
